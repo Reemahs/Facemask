@@ -1,0 +1,61 @@
+{% extends 'main/base.html' %}
+ {% block title %}
+Home
+ {% endblock %}
+
+
+
+ {% block content %}
+
+<h2>Completed Requests: {{completed_requests|length}}</h2>
+{% if completed_requests %}
+    <ul>
+        {% for request in completed_requests %}
+        <li><a href="{% url 'index' request.id %}"><strong>Name:</strong>{{request.requester.name}} <strong>Quantity:</strong>{{request.quantity}}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>
+        No requests are available
+    </p>
+{% endif %}
+
+<h2>Open Requests: {{open_requests|length}}</h2>
+{% if open_requests %}
+    <ul>
+        {% for request in open_requests %}
+        <li><a href="{% url 'index' request.id %}"><strong>Name:</strong>{{request.requester.name}} <strong>Quantity:</strong>{{request.quantity}}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>
+        No requests are available
+    </p>
+{% endif %}
+
+<h2>Requesters: {{current_requesters|length}}</h2>
+{% if current_requesters %}
+    <ul>
+        {% for requester in current_requesters %}
+        <li><strong>Name:</strong> {{requester.name}} <strong>Email:</strong> {{requester.email}}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>
+        No requesters are available
+    </p>
+{% endif %}
+
+<h2>Providers: {{current_providers|length}}</h2>
+{% if current_providers %}
+    <ul>
+        {% for provider in current_providers %}
+        <li><strong>Name:</strong> {{provider.name}} <strong>Email:</strong> {{provider.email}}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>
+        No providers are available
+    </p>
+{% endif %}
+ {% endblock %}

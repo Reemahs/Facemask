@@ -1,0 +1,19 @@
+{% extends "main/base.html" %}
+
+{% block title %}
+Create
+{% endblock %}
+
+{% block content %}
+<h3>Create a new {{creationType}}</h3>
+<br>
+<form method="post" action="/createRequest/" class="form-group">
+    {% csrf_token %}
+    <div class="input-group mb-3">
+        {{form.as_table}} <!-- .as_ul  .as_table -->
+        <div class="input-group-prepend">
+            <button type="submit", name="save" class="btn btn-success">Create</button>
+        </div>
+    </div>
+</form>
+{% endblock %}

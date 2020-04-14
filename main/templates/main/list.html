@@ -1,0 +1,44 @@
+{% extends "main/base.html" %}
+
+{% block title %}
+View Requests
+{% endblock %}
+
+{% block content %}
+    <h1>Request View</h1>
+<p>Requested by: <strong>{{ request.requester.name }}</strong></p>
+    {% if request.provider %}
+<p>Being fulfilled by: <strong>{{ request.provider.name }}</strong></p>
+        <form action="{% url 'unassign' request.id %}" method="post">
+        {% csrf_token %}
+        {% if request.complete == False %}
+            <input type="submit" value="un-assign"/>
+        {% endif %}
+        </form>
+    {% else %}
+        <p>No one is working this yet</p>
+        <form action="{% url 'assign' request.id %}" method="post">
+        {% csrf_token %}
+        {% if request.complete == False %}
+            <input type="submit" value="assign" />
+        {% endif %}
+        </form>
+    {% endif %}
+    <p>Published on: {{ request.datePublished }}</p>
+
+    {% if request.complete %}
+        <p>Status: Complete</p>
+        <form action="{% url 'uncomplete' request.id %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Re open request"/>
+        </form>
+    {% else %}
+        <p>Status: <strong>Not Complete</strong></>
+        <form action="{% url 'complete' request.id %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Mark request complete"/>
+        </form>
+    {% endif %}
+{% endblock %}
+
+
